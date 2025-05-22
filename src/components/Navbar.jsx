@@ -1,38 +1,35 @@
-import React from "react";
-import Navbar from "./Navbar";
-
-const HeroSection = () => {
+import React, { useState } from "react";
+import { data } from "../restApi.json";
+import { Link } from "react-scroll";
+import { GiHamburgerMenu } from "react-icons/gi";
+const Navbar = () => {
+  const [show, setShow] = useState(false);
   return (
-    <section className="heroSection" id="heroSection">
-      <Navbar />
-      <div className="container">
-        <div className="banner">
-          <div className="largeBox">
-            <h1 className="title">Delicious</h1>
+    <>
+      <nav>
+        <div className="logo">Ayushman</div>
+        <div className={show ? "navLinks showmenu" : "navLinks"}>
+          <div className="links">
+            {data[0].navbarLinks.map((element) => (
+              <Link
+                to={element.link}
+                spy={true}
+                smooth={true}
+                duration={500}
+                key={element.id}
+              >
+                {element.title}
+              </Link>
+            ))}
           </div>
-          <div className="combined_boxes">
-            <div className="imageBox">
-              <img src="./hero1.png" alt="hero" />
-            </div>
-            <div className="textAndLogo">
-              <div className="textWithSvg">
-                <h1 className="title">Food</h1>
-                <h1 className="title dishes_title">Dishes</h1>
-                <img src="./threelines.svg" alt="threelines" />
-              </div>
-              <img className="logo" src="logo.svg" alt="logo" />
-            </div>
-          </div>
+          <button className="menuBtn">OUR MENU</button>
         </div>
-        <div className="banner">
-          <div className="imageBox">
-            <img src="hero2.png" alt="hero" />
-          </div>
-          <h1 className="title dishes_title">Dishes</h1>
+        <div className="hamburger" onClick={()=> setShow(!show)}>
+                <GiHamburgerMenu/>
         </div>
-      </div>
-    </section>
+      </nav>
+    </>
   );
 };
 
-export default HeroSection;
+export default Navbar;
